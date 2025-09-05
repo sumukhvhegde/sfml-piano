@@ -1,6 +1,9 @@
 // Include libraries
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <cstdlib>
+#include <vector>
+#include <iostream>
 #include <cmath>
 
 // Main
@@ -44,6 +47,24 @@ int main() {
 
 	// Disable key repeat
 	app.setKeyRepeatEnabled(false);
+
+	// Load font
+	sf::Font font;
+	if (!font.openFromFile("fonts/Roboto-Regular.ttf")) {
+		std::cerr << "Error loading font!\n";
+		return EXIT_FAILURE;
+	}
+
+	// Key labels
+	std::string whiteLabels[] = {
+		"A", "B", "C", "D", "E", "F", "G", 
+		"A", "B", "C", "D", "E", "F", "G"
+	};
+
+	std::string blackLabels[] = {
+		"A#", "C#", "D#", "F#", "G#",
+		"A#", "C#", "D#", "F#" 
+	};
 
 	// Import sound
 	sf::SoundBuffer buffer;
@@ -158,9 +179,39 @@ int main() {
 			app.draw(blackKeys);
 		}
 
+		// Draw white key labels
+		for (int i = 0; i < wKeyN; ++i) {
+			sf::Text label(font);
+			label.setString(whiteLabels[i]);
+			label.setCharacterSize(16);
+			label.setFillColor(sf::Color::Black);
+
+			// Center the text on each white key
+			float x = i * wKeyWidth + wKeyWidth / 2.f - label.getLocalBounds().size.x / 2.f;
+			float y = yWindow - 30.f;
+			label.setPosition({ x, y });
+
+			app.draw(label);
+		}
+		
+		// Draw black key labels
+		for (int i = 0; i < bKeyN; ++i) {
+			sf::Text label(font);
+			label.setString(blackLabels[i]);
+			label.setCharacterSize(14);
+			label.setFillColor(sf::Color::White);
+
+			int pos = blackKeyPositions[i];
+			float x = (pos - 0.25f) * wKeyWidth + (wKeyWidth / 4.f) - label.getLocalBounds().size.x / 2.f;
+			float y = yWindow * 0.6f - 20.f;
+			label.setPosition({ x, y });
+
+			app.draw(label);
+		}
+
 		// Display
 		app.display();
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
