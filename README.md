@@ -14,4 +14,4 @@ Press keys on your keyboard to play piano notes.
 - [SFML 3.0.0](https://www.sfml-dev.org/download/)
 
 ## Credits
-I followed this tutorial by [Hopzbie](https://youtu.be/xvg0boRSvng?si=v8NmbyOnbUzRS67F) to make this project.
+This tutorial helped me to build this project: [Hopzbie](https://youtu.be/xvg0boRSvng?si=v8NmbyOnbUzRS67F)
